@@ -6,13 +6,11 @@ var startPage = document.querySelector("#start");
 var quizPage = document.querySelector("#quiz");
 var questionEl = document.querySelector("#questions");
 var button0 = document.querySelector("#btn0");
-var button0 = document.querySelector("#btn1");
-var button0 = document.querySelector("#btn2");
-var button0 = document.querySelector("#btn3");
+var button1 = document.querySelector("#btn1");
+var button2 = document.querySelector("#btn2");
+var button3 = document.querySelector("#btn3");
 var resultPage= document.querySelector("#result");
 var currentQuestion = 0;
-var i = 0;
-var index;
 // Changed all of the questions/answers objects into an array of objects with question, answer PushSubscriptionOptions, and correct answer
 
 var questions = [{
@@ -61,35 +59,29 @@ function countDown() {
         }
     }, 1000);
 }
-// function that hides HTML elements
+// function that hides HTML elements, starts countdown and gives the current question via click event
 function startQuiz() {
     startBtn.style.display = "none";
     quizPage.style.display = "block";
     countDown();
+    giveQuestion()
 }
-
+// function that gives current question and answer options. the current question is pulled from the questions array using the current question function
 function giveQuestion() {
-    for (var i = 0; i === questions.length; i++) {
-        questionEl = questions[0].question
-    }
-    // for (var i = 0; i < questions.length; i++) {
-
-    // }
-    choicesEl.addEventListener("click", function (event) {
-        var el = event.target;
-        var index = el.getAttribute("data-index");
-        if (el.matches("button")) {
-            console.log("nutsack")
-        }
-        // if ((el.matches("button")) && (index !== 2)) {
-        //     timeLeft -= 20;
-        // }
-    })
+        questionEl.textContent = questions[currentQuestion].question
+        button0.textContent = questions[currentQuestion].answer[0]
+        button1.textContent = questions[currentQuestion].answer[1]
+        button2.textContent = questions[currentQuestion].answer[2]
+        button3.textContent = questions[currentQuestion].answer[3]
 }
-// function checkAnswer(num) {
-//     if questions
-// }
 
+// function that is triggered on click with each of the 4 buttons. each button corresponds to a number 0-4, 
+function checkAnswer(answer) {
+    // the number associated with each button is then compared to the correct answer of the current question, from the questions array
+ if (answer === questions[currentQuestion].correctAnswer){
+    console.log("woooow it works")
+}
+}
 
 
 
@@ -102,10 +94,10 @@ function giveQuestion() {
 
 // need to make it so the start button disappears after starting the quiz
 startBtn.addEventListener("click", startQuiz);
-// button0.addEventListener("click" checkAnswer())
-// button1.addEventListener("click" checkAnswer())
-// button2.addEventListener("click" checkAnswer())
-// button3.addEventListener("click" checkAnswer())
+button0.addEventListener("click", checkAnswer(0))
+button1.addEventListener("click", checkAnswer(1))
+button2.addEventListener("click", checkAnswer(2))
+button3.addEventListener("click", checkAnswer(3))
 // make a few variables that contain all of the questions and answers
 
 
