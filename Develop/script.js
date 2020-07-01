@@ -1,6 +1,5 @@
 // establish querySelected variables from document
 var timeEl = document.querySelector("#timeLeft");
-var choicesEl = document.querySelector("#choices");
 var startBtn = document.querySelector("#startBtn");
 var startPage = document.querySelector("#start");
 var quizPage = document.querySelector("#quiz");
@@ -61,27 +60,28 @@ function countDown() {
 }
 // function that hides HTML elements, starts countdown and gives the current question via click event
 function startQuiz() {
-    startBtn.style.display = "none";
+    startPage.style.display = "none";
     quizPage.style.display = "block";
     countDown();
     giveQuestion()
 }
 // function that gives current question and answer options. the current question is pulled from the questions array using the current question function
 function giveQuestion() {
-        questionEl.textContent = questions[currentQuestion].question
-        button0.textContent = questions[currentQuestion].answer[0]
-        button1.textContent = questions[currentQuestion].answer[1]
-        button2.textContent = questions[currentQuestion].answer[2]
-        button3.textContent = questions[currentQuestion].answer[3]
+        questionEl.textContent = questions[0].question
+        button0.textContent = questions[0].answer[0]
+        button1.textContent = questions[0].answer[1]
+        button2.textContent = questions[0].answer[2]
+        button3.textContent = questions[0].answer[3]
 }
 
 // function that is triggered on click with each of the 4 buttons. each button corresponds to a number 0-4, 
-function checkAnswer(answer) {
-    // the number associated with each button is then compared to the correct answer of the current question, from the questions array
- if (answer === questions[currentQuestion].correctAnswer){
-    console.log("woooow it works")
-}
-}
+// function checkAnswer(answer) {
+//     // the number associated with each button is then compared to the correct answer of the current question, from the questions array 
+// can't figure that out, so I made it a different function for each button
+//  if (answer === questions[currentQuestion].correctAnswer){
+//      currentQuestion++
+// }
+// }
 
 
 
@@ -94,10 +94,32 @@ function checkAnswer(answer) {
 
 // need to make it so the start button disappears after starting the quiz
 startBtn.addEventListener("click", startQuiz);
-button0.addEventListener("click", checkAnswer(0))
-button1.addEventListener("click", checkAnswer(1))
-button2.addEventListener("click", checkAnswer(2))
-button3.addEventListener("click", checkAnswer(3))
+// event listener takes each button click and compares that button's number value to the correct answer from our questions array
+button0.addEventListener("click", function() {
+    // takes the current question's correct answer value and compares it to numbers 0-3
+    if (0 === questions[currentQuestion].correctAnswer) {
+        console.log("cool");
+        currentQuestion++
+    }
+});
+button1.addEventListener("click", function() {
+    if (1 === questions[currentQuestion].correctAnswer) {
+        console.log("cool");
+        currentQuestion++
+    }
+});
+button2.addEventListener("click", function() {
+    if (2 === questions[currentQuestion].correctAnswer) {
+        console.log("coool");
+        currentQuestion++
+    }
+});
+button3.addEventListener("click", function() {
+    if (3 === questions[currentQuestion].correctAnswer) {
+        console.log("coooooool");
+        currentQuestion++
+    }
+});
 // make a few variables that contain all of the questions and answers
 
 
