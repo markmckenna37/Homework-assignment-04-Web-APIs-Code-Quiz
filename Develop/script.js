@@ -2,7 +2,15 @@
 var timeEl = document.querySelector("#timeLeft");
 var choicesEl = document.querySelector("#choices");
 var startBtn = document.querySelector("#startBtn");
-var questionEl = document.querySelector("#question")
+var startPage = document.querySelector("#start");
+var quizPage = document.querySelector("#quiz");
+var questionEl = document.querySelector("#questions");
+var button0 = document.querySelector("#btn0");
+var button0 = document.querySelector("#btn1");
+var button0 = document.querySelector("#btn2");
+var button0 = document.querySelector("#btn3");
+var resultPage= document.querySelector("#result");
+var currentQuestion = 0;
 var i = 0;
 var index;
 // Changed all of the questions/answers objects into an array of objects with question, answer PushSubscriptionOptions, and correct answer
@@ -35,12 +43,12 @@ var questions = [{
     }
 ]
 
-
 // Set a timer starting at 75s and counts down by a the second
 // establish a time variable, set it to 75
 var timeLeft = 75;
-// hide the answer buttons until the quiz is started
-choicesEl.style.display = "none";
+// hide the quiz and result pages until the start button is pressed.
+quizPage.style.display = "none";
+result.style.display = "none";
 // write a function to count down from by seconds from 75.
 function countDown() {
     var timerInterval = setInterval(function () {
@@ -56,16 +64,13 @@ function countDown() {
 // function that hides HTML elements
 function startQuiz() {
     startBtn.style.display = "none";
-    choicesEl.style.display = "block";
+    quizPage.style.display = "block";
     countDown();
 }
 
 function giveQuestion() {
-    for (var i = 0; i < questions[i].answer.length; i++) {
-    var li = document.createElement("li");
-    li.setAttribute("data-index", i);
-    li.innerHTML = "<button>Choose</button> " + questions[i].answer[i];
-    choicesEl.appendChild(li);
+    for (var i = 0; i === questions.length; i++) {
+        questionEl = questions[0].question
     }
     // for (var i = 0; i < questions.length; i++) {
 
@@ -81,105 +86,12 @@ function giveQuestion() {
         // }
     })
 }
+// function checkAnswer(num) {
+//     if questions
+// }
 
-function giveQuestion2() {
-    var li = document.getElementById("li");
-    questionEl.textContent = questions.question2;
-    for (var i = 0; i < 4; i++) {
-        var li = document.getElementById("");
-        li.textContent = "Choose " + questions.answer2[i];
-    }
-    choicesEl.addEventListener("click", function (event) {
-        var el = event.target;
-        var index = el.getAttribute("data-index");
-        if ((el.matches("button")) && (index === 1)) {
-            giveQuestion3();
-        }
-        if ((el.matches("button")) && (index !== 1)) {
-            timeLeft -= 20;
-        }
-    })
-}
 
-function giveQuestion3() {
-    for (var i = 0; i < 4; i++) {
-        questionEl.textContent = questions.question3;
-        var li = document.createElement("li");
-        li.setAttribute("data-index", i);
-        li.innerHTML = "<button>Choose</button> " + questions.answer3[i];
-        choicesEl.appendChild(li);
-    }
-    choicesEl.addEventListener("click", function (event) {
-        var el = event.target;
-        var index = el.getAttribute("data-index");
-        if ((el.matches("button")) && (index === 3)) {
-            giveQuestion4();
-        }
-        if ((el.matches("button")) && (index !== 3)) {
-            timeLeft -= 20;
-        }
-    })
-}
 
-function giveQuestion4() {
-    for (var i = 0; i < 4; i++) {
-        questionEl.textContent = questions.question4;
-        var li = document.createElement("li");
-        li.setAttribute("data-index", i);
-        li.innerHTML = "<button>Choose</button> " + questions.answer4[i];
-        choicesEl.appendChild(li);
-    }
-    choicesEl.addEventListener("click", function (event) {
-        var el = event.target;
-        var index = el.getAttribute("data-index");
-        if ((el.matches("button")) && (index === 0)) {
-            giveQuestion5();
-        }
-        if ((el.matches("button")) && (index !== 0)) {
-            timeLeft -= 20;
-        }
-    })
-}
-
-function giveQuestion5() {
-    for (var i = 0; i < 4; i++) {
-        questionEl.textContent = questions.question5;
-        var li = document.createElement("li");
-        li.setAttribute("data-index", i);
-        li.innerHTML = "<button>Choose</button> " + questions.answer5[i];
-        choicesEl.appendChild(li);
-    }
-    choicesEl.addEventListener("click", function (event) {
-        var el = event.target;
-        var index = el.getAttribute("data-index");
-        if ((el.matches("button")) && (index === 3)) {
-            giveQuestion6();
-        }
-        if ((el.matches("button")) && (index !== 3)) {
-            timeLeft -= 20;
-        }
-    })
-}
-
-function giveQuestion6() {
-    for (var i = 0; i < 4; i++) {
-        questionEl.textContent = questions.question6;
-        var li = document.createElement("li");
-        li.setAttribute("data-index", i);
-        li.innerHTML = "<button>Choose</button> " + questions.answer6[i];
-        choicesEl.appendChild(li);
-    }
-    choicesEl.addEventListener("click", function (event) {
-        var el = event.target;
-        var index = el.getAttribute("data-index");
-        if ((el.matches("button")) && (index === 1)) {
-            giveQuestion2();
-        }
-        if ((el.matches("button")) && (index !== 1)) {
-            timeLeft -= 20;
-        }
-    })
-}
 
 
 
@@ -190,8 +102,10 @@ function giveQuestion6() {
 
 // need to make it so the start button disappears after starting the quiz
 startBtn.addEventListener("click", startQuiz);
-startBtn.addEventListener("click", giveQuestion);
-
+// button0.addEventListener("click" checkAnswer())
+// button1.addEventListener("click" checkAnswer())
+// button2.addEventListener("click" checkAnswer())
+// button3.addEventListener("click" checkAnswer())
 // make a few variables that contain all of the questions and answers
 
 
