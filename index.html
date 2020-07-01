@@ -12,25 +12,40 @@
 <link rel="stylesheet" href="Develop/style.css">
 </head>
 <body>
-    <!-- making a container for the current quiz question/headings -->
-<div class="container">
-   <h2>Time left: <span id="timeLeft">75</span></h2>
-</div>
-<div class="container">
-    <h2><span id="question"></span></h2>
-</div>
-<!-- Container for the buttons for submitting answers -->
-    <div class="container">
+    <!-- changed to 3 different divs for 3 different sections: start page, quiz page, and results page -->
+    <!-- start page -->
+    <div id="start">
+        <p>Press the button to start the quiz. If you answer correctly, you can proceed to the next question. Answer incorrectly, and your sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc</p>
         <button type="button" class="btn btn-primary btn-lg" id="startBtn">Start quiz</button>
     </div>
-    <div class="container" id="choices">
-        <div class="col-md-2">
-            <!-- group of all my buttons with individual button names
-            <button type="button" class="btn btn-primary btn-lg" id="btn1"></button>
-            <button type="button" class="btn btn-primary btn-lg" id="btn2"></button>
-            <button type="button" class="btn btn-primary btn-lg" id="btn3"></button>
-            <button type="button" class="btn btn-primary btn-lg" id="btn4"></button>
-        </div> -->
+    <!-- Quiz page -->
+    <div id="quiz">
+        <h2>Time left: <span id="timeLeft">75</span></h2>
+        <h3>Question: <span id="questions"></span></h3>
+        <div class="col-md-2" id="choices">
+            <li>
+            <button type="button" class="btn btn-primary btn-lg" id="btn0" onClick="checkAnswer(0)">answer1</button>
+            </li>
+            <li>
+            <button type="button" class="btn btn-primary btn-lg" id="btn1" onClick="checkAnswer(1)">answer2</button>
+            </li>
+            <li>
+            <button type="button" class="btn btn-primary btn-lg" id="btn2" onClick="checkAnswer(2)">answer3</button>
+            </li>
+            <li>
+            <button type="button" class="btn btn-primary btn-lg" id="btn3" onClick="checkAnswer(3)">answer4</button>
+            </li>
+        </div>
+    </div>
+<!-- Results page -->
+<div id="result">
+    <h1>Well done! Enter your initials with your high score!</h1>
+            <div>
+                <form>
+                    <input type="text" id="initials" name="initials" placeholder="Enter initials here"><br>
+                    <input type="submit" value="Submit" onClick="storeScore()">
+                </form>
+            </div>
     </div>
         <!-- linking to javascript -->
     <script rel="script" src="Develop/script.js"></script>
