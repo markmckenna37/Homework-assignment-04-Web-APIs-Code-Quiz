@@ -43,8 +43,15 @@
             <div>
                 <form>
                     <input type="text" id="initials" name="initials" placeholder="Enter initials here"><br>
-                    <input type="submit" value="Submit" onClick="storeScore()">
+                    <input type="submit" class="btn btn-primary btn-lg" id="submit" value="Submit">
                 </form>
+            </div>
+            <h2>High Scores:</h2>
+            <h2><span id="initialText"></span></h2>
+            <h3>Score: <span id="scoreText"></span></h3>
+            <div>
+            <h1>Would you like to play again?</h1>
+            <button type="button" class="btn btn-primary btn-lg" id="playAgain">Play again</button>
             </div>
     </div>
         <!-- linking to javascript -->

@@ -8,8 +8,14 @@ var button0 = document.querySelector("#btn0");
 var button1 = document.querySelector("#btn1");
 var button2 = document.querySelector("#btn2");
 var button3 = document.querySelector("#btn3");
-var resultPage= document.querySelector("#result");
+var resultPage = document.querySelector("#result");
+var submit = document.querySelector("#submit");
+var initials = document.querySelector("#initials");
+var initialText = document.querySelector("#initialText");
+var scoreText = document.querySelector("#scoreText");
+var playAgain = document.querySelector("#playAgain");
 var currentQuestion = 0;
+var score = 0
 // Changed all of the questions/answers objects into an array of objects with question, answer PushSubscriptionOptions, and correct answer
 
 var questions = [{
@@ -45,7 +51,7 @@ var questions = [{
 var timeLeft = 75;
 // hide the quiz and result pages until the start button is pressed.
 quizPage.style.display = "none";
-result.style.display = "none";
+resultPage.style.display = "none";
 // write a function to count down from by seconds from 75.
 function countDown() {
     var timerInterval = setInterval(function () {
@@ -67,62 +73,69 @@ function startQuiz() {
 }
 // function that gives current question and answer options. the current question is pulled from the questions array using the current question function
 function giveQuestion(i) {
+        if (currentQuestion === questions.length) {
+            score = timeLeft;
+            quizPage.style.display = "none";
+            result.style.display = "block";
+        }
+        else {
         questionEl.textContent = questions[i].question
         button0.textContent = questions[i].answer[0]
         button1.textContent = questions[i].answer[1]
         button2.textContent = questions[i].answer[2]
         button3.textContent = questions[i].answer[3]
+    }
 }
 
 // function that is triggered on click with each of the 4 buttons. each button corresponds to a number 0-4, 
 // function checkAnswer(answer) {
 //     // the number associated with each button is then compared to the correct answer of the current question, from the questions array 
-// can't figure that out, so I made it a different function for each button
+function checkAnswer(num) {
+    if ( num === questions[currentQuestion].correctAnswer) {
+        currentQuestion++
+        giveQuestion(currentQuestion)
+    }
+    else {timeLeft -= 20}
+}
 
-
-
-
-
-
-
-// set all of the buttons up with a dynamic click event that tracks whether the answer is correct of incorrect
-
+// Now I need a function that stores the initials and final score of the user
+function storeScore() {
+    event.preventDefault(); 
+    localStorage.setItem("initials", initials.value);
+    localStorage.setItem("score", JSON.stringify(score));
+    writeScore();
+}
+// and then display the local storage cache as a high score page
+function writeScore() {
+    initialText.textContent = localStorage.getItem("initials");
+    scoreText.textContent = JSON.parse(localStorage.getItem("score"));
+}
 
 // need to make it so the start button disappears after starting the quiz
 startBtn.addEventListener("click", startQuiz);
-// event listener takes each button click and compares that button's number value to the correct answer from our questions array
-button0.addEventListener("click", function() {
-    // takes the current question's correct answer value and compares it to numbers 0-3
-    if (0 === questions[currentQuestion].correctAnswer) {
-        // adding 1 to our current questions variable and calling the next function with the currentquestion value
-        currentQuestion++
-        giveQuestion(currentQuestion)
-    }
-    // if the wrong button is clicked, 20 seconds is deducted from the timeleft variable
-    else {timeLeft -= 20}
-});
-// repeating for the other 3 buttons
-button1.addEventListener("click", function() {
-    if (1 === questions[currentQuestion].correctAnswer) {
-        currentQuestion++
-        giveQuestion(currentQuestion)
-    }
-    else {timeLeft -= 20}
-});
-button2.addEventListener("click", function() {
-    if (2 === questions[currentQuestion].correctAnswer) {
-        currentQuestion++
-        giveQuestion(currentQuestion)
-    }
-    else {timeLeft -= 20}
-});
-button3.addEventListener("click", function() {
-    if (3 === questions[currentQuestion].correctAnswer) {
-        currentQuestion++
-        giveQuestion(currentQuestion)
-    }
-    else {timeLeft -= 20}
-});
+
+button0.addEventListener("click", function () {
+    checkAnswer(0)
+})
+button1.addEventListener("click", function () {
+    checkAnswer(1)
+})
+button2.addEventListener("click", function () {
+    checkAnswer(2)
+})
+button3.addEventListener("click", function () {
+    checkAnswer(3)
+})
+
+submit.addEventListener("click", storeScore)
+playAgain.addEventListener("click", function() {
+    currentQuestion = 0;
+    timeLeft = 75;
+    score = 0;
+    resultPage.style.display = "none";
+    startQuiz();
+    
+})
 // make a few variables that contain all of the questions and answers
 
 
