@@ -1,62 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coding quiz challenge</title>
     <!-- linking to bootstrap styles -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="Develop/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="Develop/style.css">
 </head>
+
 <body>
     <!-- changed to 3 different divs for 3 different sections: start page, quiz page, and results page -->
     <!-- start page -->
-    <div id="start" class="col-md-4">
-        <p class="instructions">This is a quiz for the basics of JavaScript! If you answer correctly, you can proceed to the next question. </p>
-           <p class="instructions">If you answer incorrectly, then 20 seconds will be deducted from your time. Answer every question correctly to enter your high score!</p>
-           <p class="instructions1">Click the button below to start!</p>
+    <div id="start" class="col-sm-12 col-md-6">
+        <p class="instructions">This is a quiz for the basics of JavaScript! If you answer correctly, you can proceed to
+            the next question. </p>
+        <p class="instructions">If you answer incorrectly, then 20 seconds will be deducted from your time. Answer every
+            question correctly to enter your high score!</p>
+        <p class="instructions1">Click the button below to start!</p>
         <button type="button" class="btn btn-primary btn-lg" id="startBtn">Start quiz</button>
     </div>
     <!-- Quiz page -->
-    <div id="quiz" class="col-md-4">
+    <div id="quiz" class="col-sm-12 col-md-6">
         <p class="timerText">Time left: <span id="timeLeft">75</span></p>
         <p class="questionText">Question: <span id="questions"></span></p>
         <div class="col-md-10" id="choices">
+            <!-- buttons that will hold answer options -->
             <button type="button" class="btn btn-primary btn-lg" id="btn0">answer1</button>
             <button type="button" class="btn btn-primary btn-lg" id="btn1">answer2</button>
             <button type="button" class="btn btn-primary btn-lg" id="btn2">answer3</button>
             <button type="button" class="btn btn-primary btn-lg" id="btn3">answer4</button>
+            <!-- element that gives us "correct" or "wrong" based on our answers -->
             <div>
                 <h4><span id="feedback"></span></h4>
             </div>
         </div>
     </div>
-<!-- Results page -->
-<div id="result" class="col-md-4">
-    <h1>Well done! Enter your initials with your high score!</h1>
-            <div>
-                <form>
-                    <input type="text" class="form-control form-control-lg" id="initials" name="initials" placeholder="Enter initials here"><br>
-                    <input type="submit" class="btn btn-primary btn-lg" id="submit" value="Submit">
-                </form>
-            </div>
-            <h2>High Scores:</h2>
-            <h3><span id="initialText"></span></h3>
-            <p id="score-text">Score: <span id="scoreText"></span></p>
-            <div>
+    <!-- Results page -->
+    <div id="result" class="col-sm-12 col-md-6">
+        <h1>Well done! Enter your initials with your high score!</h1>
+        <div>
+            <!-- form to enter and submit our initials -->
+            <form>
+                <input type="text" class="form-control form-control-lg" id="initials" name="initials"
+                    placeholder="Enter initials here"><br>
+                <input type="submit" class="btn btn-primary btn-lg" id="submit" value="Submit">
+            </form>
+        </div>
+        <!-- high scores page, will be populated with local storage items -->
+        <h2>High Scores:</h2>
+        <h3><span id="initialText"></span></h3>
+        <p id="score-text">Score: <span id="scoreText"></span></p>
+        <div>
             <p class="play-again-text">Would you like to play again?</p>
             <button type="button" class="btn btn-primary btn-lg" id="playAgain">Play again</button>
-            </div>
+        </div>
     </div>
-    <div id="losePage" class="col-md-4">
+    <!-- if the timer runs out, we will be brought to this element to give us the option to start over with another play again button -->
+    <div id="losePage" class="col-sm-12 col-md-6">
         <h1>You're out of time!</h1>
         <h1>Would you like to play again?</h1>
         <button type="button" class="btn btn-primary btn-lg" id="losePlayAgain">Play again</button>
     </div>
-        <!-- linking to javascript -->
+    <!-- linking to javascript -->
     <script rel="script" src="Develop/script.js"></script>
 </body>
+
 </html>

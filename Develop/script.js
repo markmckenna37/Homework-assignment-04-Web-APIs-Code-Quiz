@@ -21,6 +21,7 @@ var feedback = document.querySelector("#feedback");
 // global variables
 var timerInterval;
 var timeLeft = 75;
+// variable from which our giveQuestion function pulls its value
 var currentQuestion = 0;
 var score = 0;
 // Changed all of the questions/answers objects into an array of objects with question, answer PushSubscriptionOptions, and correct answer
@@ -55,13 +56,14 @@ var questions = [{
 
 // Set a timer starting at 75s and counts down by a the second
 // establish a time variable, set it to 75
-// hide the quiz and result pages until the start button is pressed.
+// hide the quiz, lose, and result pages until the start button is pressed.
 quizPage.style.display = "none";
 resultPage.style.display = "none";
 losePage.style.display = "none";
 // write a function to count down from by seconds from 75.
 function countDown() {
     timerInterval = setInterval(function () {
+        // if the timer runs out, the time interval is cleared, and the losing page is displayed
         if (timeLeft <= 1) {
             clearInterval(timerInterval);
             timeLeft = 0;
@@ -69,28 +71,31 @@ function countDown() {
             losePage.style.display = "block";
 
         }
+        // 1 is subtracted from our timer every second
         timeLeft--;
         timeEl.textContent = timeLeft;
     }, 1000);
 }
-// function that hides HTML elements, starts countdown and gives the current question via click event
+// function triggerd by click event on the start button. sets quiz page display to visible, starts our countdown, and gives our first question
 function startQuiz() {
     startPage.style.display = "none";
     quizPage.style.display = "block";
     countDown();
     giveQuestion(currentQuestion)
 }
-// function that gives current question and answer options. the current question is pulled from the questions array using the current question function
+// function that gives current question and answer options. 
 function giveQuestion(i) {
-        if (currentQuestion === questions.length) {
-            score = timeLeft;
-            timeEl.textContent = "75";
-            storeScore();
-            clearInterval(timerInterval);
-            quizPage.style.display = "none";
-            result.style.display = "block";
-        }
-        else {
+    // if we exceed our total length of questions, our quiz page is hidden, results page is shown, and the store score function is called
+    if (currentQuestion === questions.length) {
+        score = timeLeft;
+        timeEl.textContent = "75";
+        storeScore();
+        clearInterval(timerInterval);
+        quizPage.style.display = "none";
+        result.style.display = "block";
+    }
+    // otherwise, our next question is given after the current question variable is iterated
+    else {
         questionEl.textContent = questions[i].question
         button0.textContent = questions[i].answer[0]
         button1.textContent = questions[i].answer[1]
@@ -100,46 +105,51 @@ function giveQuestion(i) {
 }
 
 // function that is triggered on click with each of the 4 buttons. each button corresponds to a number 0-4, 
-// function checkAnswer(answer) {
 function checkAnswer(num) {
-    if ( num === questions[currentQuestion].correctAnswer) {
+    if (num === questions[currentQuestion].correctAnswer) {
+        // feedback is given if right or wrong
         feedback.style.display = "block";
         feedback.textContent = "Correct!";
+        // after 1 second, a set timeout is used to hide the feedback text
         setTimeout(feedbackHide, 1000);
         currentQuestion++;
         giveQuestion(currentQuestion);
-    }
-    else { 
-        feedback.style.display = "block";  
+    } else {
+        // feedback is given if right or wrong
+        feedback.style.display = "block";
         feedback.textContent = "WRONG!";
-        setTimeout(feedbackHide, 1000)    
+        // after 1 second, a set timeout is used to hide the feedback text
+        setTimeout(feedbackHide, 1000)
+        // if wrong, 20  is subtracted from our time left variable 
         timeLeft -= 20
     }
 }
+
 function feedbackHide() {
     feedback.style.display = "none";
-  }
+}
 // Now I need a function that stores the initials and final score of the user
-
+// function that locally stores the players initials obtained from the submit button, and score obtained from the time left variable
 function storeScore() {
     event.preventDefault();
     localStorage.setItem("initials", initials.value);
     localStorage.setItem("score", score);
+    // calls the function to write our score to the HTML page
     getScore()
 }
+// function to write our score to the HTML page
 function getScore() {
     initialText.textContent = localStorage.getItem("initials", initials.value)
     scoreText.textContent = JSON.parse(localStorage.getItem("score", score))
-   }
-// and then display the local storage cache as a high score page
+}
 
 
 
 
 
-// need to make it so the start button disappears after starting the quiz
+// click event for start button0, calls the startQuiz function
 startBtn.addEventListener("click", startQuiz);
-
+// click event the calls the check answer functions with the parameter 0-3 respectively
 button0.addEventListener("click", function () {
     checkAnswer(0)
 })
@@ -152,20 +162,20 @@ button2.addEventListener("click", function () {
 button3.addEventListener("click", function () {
     checkAnswer(3)
 })
-
+// button to submit our high score
 submit.addEventListener("click", storeScore);
-
-playAgain.addEventListener("click", function() {
+// event listener for play again button. resets variables, sets the correct displays and calls the start quiz function
+playAgain.addEventListener("click", function () {
     currentQuestion = 0;
     score = 0;
     timeLeft = 75;
     resultPage.style.display = "none";
     losePage.style.display = "none";
     startQuiz();
-    
-})
 
-losePlayAgain.addEventListener("click", function() {
+})
+// event listener for play again button. resets variables, sets the correct displays and calls the start quiz function
+losePlayAgain.addEventListener("click", function () {
     currentQuestion = 0;
     score = 0;
     timeLeft = 75;
