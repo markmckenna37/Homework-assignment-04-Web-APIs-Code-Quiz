@@ -14,8 +14,12 @@ var initials = document.querySelector("#initials");
 var initialText = document.querySelector("#initialText");
 var scoreText = document.querySelector("#scoreText");
 var playAgain = document.querySelector("#playAgain");
+var feedback = document.querySelector("#feedback");
+// global variables
+var timerInterval;
+var timeLeft = 75;
 var currentQuestion = 0;
-var score = 0
+var score = 0;
 // Changed all of the questions/answers objects into an array of objects with question, answer PushSubscriptionOptions, and correct answer
 
 var questions = [{
@@ -48,20 +52,18 @@ var questions = [{
 
 // Set a timer starting at 75s and counts down by a the second
 // establish a time variable, set it to 75
-var timeLeft = 75;
 // hide the quiz and result pages until the start button is pressed.
 quizPage.style.display = "none";
 resultPage.style.display = "none";
 // write a function to count down from by seconds from 75.
 function countDown() {
-    var timerInterval = setInterval(function () {
-        timeLeft--;
-        timeEl.textContent = timeLeft;
-
+    timerInterval = setInterval(function () {
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            alert("OUT OF TIME")
+            timeLeft = 0;
         }
+        timeLeft--;
+        timeEl.textContent = timeLeft;
     }, 1000);
 }
 // function that hides HTML elements, starts countdown and gives the current question via click event
@@ -75,6 +77,9 @@ function startQuiz() {
 function giveQuestion(i) {
         if (currentQuestion === questions.length) {
             score = timeLeft;
+            timeEl.textContent = "75";
+            getScore();
+            clearInterval(timerInterval);
             quizPage.style.display = "none";
             result.style.display = "block";
         }
@@ -92,21 +97,31 @@ function giveQuestion(i) {
 //     // the number associated with each button is then compared to the correct answer of the current question, from the questions array 
 function checkAnswer(num) {
     if ( num === questions[currentQuestion].correctAnswer) {
-        currentQuestion++
-        giveQuestion(currentQuestion)
+        feedback.style.display = "block";
+        feedback.textContent = "Correct!";
+        setTimeout(feedbackHide, 2000);
+        currentQuestion++;
+        giveQuestion(currentQuestion);
     }
-    else {timeLeft -= 20}
+    else { 
+        feedback.style.display = "block";  
+        feedback.textContent = "WRONG!";
+        setTimeout(feedbackHide, 2000)    
+        timeLeft -= 20
+    }
 }
-
+function feedbackHide() {
+    feedback.style.display = "none";
+  }
 // Now I need a function that stores the initials and final score of the user
 function storeScore() {
     event.preventDefault(); 
     localStorage.setItem("initials", initials.value);
     localStorage.setItem("score", JSON.stringify(score));
-    writeScore();
+    getScore();
 }
 // and then display the local storage cache as a high score page
-function writeScore() {
+function getScore() {
     initialText.textContent = localStorage.getItem("initials");
     scoreText.textContent = JSON.parse(localStorage.getItem("score"));
 }
@@ -130,8 +145,8 @@ button3.addEventListener("click", function () {
 submit.addEventListener("click", storeScore)
 playAgain.addEventListener("click", function() {
     currentQuestion = 0;
-    timeLeft = 75;
     score = 0;
+    timeLeft = 75;
     resultPage.style.display = "none";
     startQuiz();
     
