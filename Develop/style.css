@@ -1,6 +1,28 @@
 button {
     margin-bottom: 3rem;
 }
-
-/* 
-make the rest look pretty */
+body {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+}
+.questionText {
+    margin-top: 2rem;
+    font-size: 30px;
+}
+.timerText {
+    font-size: 35px;
+}
+.instructions {
+    font-size: 20px;
+}
+#choices {
+    display: flex;
+    flex-direction: column;
+}
+#start, #quiz, #result {
+    background: rgb(245, 243, 243);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #000;
+}
