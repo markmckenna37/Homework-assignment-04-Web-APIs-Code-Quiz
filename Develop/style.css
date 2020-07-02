@@ -13,14 +13,31 @@ body {
 .timerText {
     font-size: 35px;
 }
-.instructions {
-    font-size: 20px;
+#timeLeft {
+    color: red;
+}
+h2 {
+    font-weight: bold;
+    margin-top: 2rem;
+}
+.play-again-text {
+    font-size: 30px;
+}
+#score-text {
+    font-size: 25px;
+}
+.instructions, .instructions1 {
+    font-size: 25px;
+    margin-bottom: 1rem;
+}
+.instructions1 {
+    font-weight: bold;
 }
 #choices {
     display: flex;
     flex-direction: column;
 }
-#start, #quiz, #result {
+#start, #quiz, #result, #losePage {
     background: rgb(245, 243, 243);
     padding: 30px;
     border-radius: 10px;

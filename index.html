@@ -17,7 +17,7 @@
     <div id="start" class="col-md-4">
         <p class="instructions">This is a quiz for the basics of JavaScript! If you answer correctly, you can proceed to the next question. </p>
            <p class="instructions">If you answer incorrectly, then 20 seconds will be deducted from your time. Answer every question correctly to enter your high score!</p>
-           <p class="instructions">Click the button below to start!</p>
+           <p class="instructions1">Click the button below to start!</p>
         <button type="button" class="btn btn-primary btn-lg" id="startBtn">Start quiz</button>
     </div>
     <!-- Quiz page -->
@@ -44,14 +44,14 @@
                 </form>
             </div>
             <h2>High Scores:</h2>
-            <h2><span id="initialText"></span></h2>
-            <h3>Score: <span id="scoreText"></span></h3>
+            <h3><span id="initialText"></span></h3>
+            <p id="score-text">Score: <span id="scoreText"></span></p>
             <div>
-            <h1>Would you like to play again?</h1>
+            <p class="play-again-text">Would you like to play again?</p>
             <button type="button" class="btn btn-primary btn-lg" id="playAgain">Play again</button>
             </div>
     </div>
-    <div class="container" id="losePage">
+    <div id="losePage" class="col-md-4">
         <h1>You're out of time!</h1>
         <h1>Would you like to play again?</h1>
         <button type="button" class="btn btn-primary btn-lg" id="losePlayAgain">Play again</button>
