@@ -59,9 +59,13 @@
             </form>
         </div>
         <!-- high scores page, will be populated with local storage items -->
+        <div id="highScoresDiv">
         <h2>High Scores:</h2>
-        <h3><span id="initialText"></span></h3>
-        <p id="score-text">Score: <span id="scoreText"></span></p>
+            <form id="highScoreForm" method="POST">
+            <ul id="highScoreList"></ul>
+            </form>
+        </div>
+
         <div>
             <p class="play-again-text">Would you like to play again?</p>
             <button type="button" class="btn btn-primary btn-lg" id="playAgain">Play again</button>

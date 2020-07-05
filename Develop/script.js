@@ -11,14 +11,16 @@ var button3 = document.querySelector("#btn3");
 var resultPage = document.querySelector("#result");
 var submit = document.querySelector("#submit");
 var initials = document.querySelector("#initials");
-var initialForm = document.querySelector("#scoreForm");
-var initialText = document.querySelector("#initialText");
-var scoreText = document.querySelector("#scoreText");
+var highScoresDiv = document.querySelector("#highScoresDiv");
+var highScoreForm = document.querySelector("#highScoreForm");
+var highScoreList = document.querySelector("#highScoreList");
 var playAgain = document.querySelector("#playAgain");
 var losePlayAgain = document.querySelector("#losePlayAgain");
 var losePage = document.querySelector("#losePage")
 var feedback = document.querySelector("#feedback");
 // global variables
+var highScoreCount = 0;
+var highScores = [];
 var timerInterval;
 var timeLeft = 75;
 // variable from which our giveQuestion function pulls its value
@@ -89,8 +91,8 @@ function giveQuestion(i) {
     if (currentQuestion === questions.length) {
         score = timeLeft;
         timeEl.textContent = "75";
-        storeScore();
         clearInterval(timerInterval);
+        renderHighScoreForm();
         quizPage.style.display = "none";
         result.style.display = "block";
     }
@@ -122,6 +124,8 @@ function checkAnswer(num) {
         setTimeout(feedbackHide, 1000)
         // if wrong, 20  is subtracted from our time left variable 
         timeLeft -= 20
+        currentQuestion++;
+        giveQuestion(currentQuestion);
     }
 }
 
@@ -130,18 +134,32 @@ function feedbackHide() {
 }
 // Now I need a function that stores the initials and final score of the user
 // function that locally stores the players initials obtained from the submit button, and score obtained from the time left variable
+function renderHighScoreForm() {
+    for (var i = 0; i < highScores.length; i++) {
+        var li = document.createElement("li");
+        li.setAttribute("data-index", i);
+        li.innerHTML = highScores[i]
+        highScoreList.appendChild(li);
+    }
+}
 function storeScore() {
+    localStorage.setItem("scoreStore", JSON.stringify(highScores))
+}
+
+function addScore() {
     event.preventDefault();
-    localStorage.setItem("initials", initials.value);
-    localStorage.setItem("score", score);
-    // calls the function to write our score to the HTML page
-    getScore()
+    var finalScore = "Player: " + initials.value.trim() + ". Score: " + score
+    if (!finalScore) {
+        return false;
+    }
+    highScores.push(finalScore);
+    initials.value = "";
+    storeScore();
+    renderHighScoreForm();
 }
-// function to write our score to the HTML page
-function getScore() {
-    initialText.textContent = localStorage.getItem("initials", initials.value)
-    scoreText.textContent = JSON.parse(localStorage.getItem("score", score))
-}
+highScores = JSON.parse(localStorage.getItem("scoreStore")) || [];
+console.log(highScores)
+
 
 
 
@@ -163,7 +181,7 @@ button3.addEventListener("click", function () {
     checkAnswer(3)
 })
 // button to submit our high score
-submit.addEventListener("click", storeScore);
+submit.addEventListener("click", addScore);
 // event listener for play again button. resets variables, sets the correct displays and calls the start quiz function
 playAgain.addEventListener("click", function () {
     currentQuestion = 0;
